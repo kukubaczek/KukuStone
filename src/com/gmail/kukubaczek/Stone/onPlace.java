@@ -14,13 +14,15 @@ public class onPlace implements Listener{
 	@EventHandler
 	public void onBreak(BlockPlaceEvent event) {
 		final Block blok = event.getBlock();
-		Location loc = blok.getLocation();
+		final Location loc = blok.getLocation();
 		final Location loc1 = new Location(loc.getWorld(), loc.getX(), loc.getY() + 1, loc.getZ());
 		if(blok.getType() == Material.ENDER_STONE){
 			if(loc1.getBlock().getType() == Material.AIR){
 				Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable(){
 					public void run() {
-						loc1.getBlock().setType(Material.STONE);
+						if(loc.getBlock().getType() == Material.ENDER_STONE){
+							loc1.getBlock().setType(Material.STONE);
+						}
 					}
 				}, Main.getTicks("generate"));
 			}
